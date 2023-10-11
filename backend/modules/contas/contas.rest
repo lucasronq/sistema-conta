@@ -1,0 +1,55 @@
+### teste get all contas
+GET http://localhost:40000/contas HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0NTkzMzUsImV4cCI6MTY5NjQ1OTkzNX0.g1yS3lLNBbagExvyoN2sAJ9_cv4psHLjtWScdBmULeU
+
+{    
+    
+}
+
+### teste get by id
+GET http://localhost:40000/conta/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0NTkzMzUsImV4cCI6MTY5NjQ1OTkzNX0.g1yS3lLNBbagExvyoN2sAJ9_cv4psHLjtWScdBmULeU
+
+{    
+  
+}
+
+### teste insert
+POST http://localhost:40000/conta HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0NTkzMzUsImV4cCI6MTY5NjQ1OTkzNX0.g1yS3lLNBbagExvyoN2sAJ9_cv4psHLjtWScdBmULeU
+
+{    
+    "banco": "santander",
+    "agencia": "3",
+    "conta_corrente": "asdg",
+    "receber": 10,
+    "pagar": 20,
+    "deleted": false
+}
+
+### teste update by id
+PUT http://localhost:40000/conta HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0NTkzMzUsImV4cCI6MTY5NjQ1OTkzNX0.g1yS3lLNBbagExvyoN2sAJ9_cv4psHLjtWScdBmULeU
+
+{    
+    "id": "1",
+    "banco": "nubank",
+    "agencia": "3",
+    "conta_corrente": "ghjkkk",
+    "receber": 40,
+    "pagar": 10,
+    "deleted": false
+}
+
+### teste delete by id
+DELETE http://localhost:40000/conta HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0NTkzMzUsImV4cCI6MTY5NjQ1OTkzNX0.g1yS3lLNBbagExvyoN2sAJ9_cv4psHLjtWScdBmULeU
+
+{    
+  "id": "1"
+}

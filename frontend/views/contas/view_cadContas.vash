@@ -1,0 +1,222 @@
+@html.extend('layout', function(model){
+
+  @html.block('content', function(model){
+  
+  <main>
+    <div class="container-fluid px-4">
+      <h1 class="mt-2">@model.title</h1>
+      <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item active">@model.title</li>
+      </ol>
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card-header"></div>
+  
+          <div class="card-body">
+            <div class="col-sm-6 col-xxl-12">
+              <form id="form">
+                <div class="mb-1" style="display: none">
+                  <input type="number" name="contasid" class="form-control" id="contasid" />
+                </div>
+                <div class="mb-1 row ">
+                  <label for="codigo" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
+                  <div class="col-sm-4 col-xxl-2">
+                    <input type="text" name="banco" class="form-control-plaintext" id="banco" maxlength="10" required />
+                  </div>
+  
+                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
+                  <div class="col-sm-4 col-xxl-3">
+                    <input type="text" name="agencia" class="form-control-plaintext" id="agencia" maxlength="50" required />
+                  </div>
+
+                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
+                  <div class="col-sm-4 col-xxl-3">
+                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="conta_corrente" maxlength="50" required />
+                  </div>
+
+                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
+                  <div class="col-sm-4 col-xxl-3">
+                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="receber" maxlength="50" required />
+                  </div>
+
+                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
+                  <div class="col-sm-4 col-xxl-3">
+                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="pagar" maxlength="50" required />
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+            <div class="">
+              <button type="button" class="btn btn-success me-2" onclick="btnSalvar()" id="btnSalvar" hidden>
+                Salvar
+              </button>
+  
+              <button type="button" class="btn btn-warning me-2" onclick="btnAlterar()" id="btnAlterar" hidden>
+                Alterar
+              </button>
+  
+              <button type="button" class="btn btn-warning me-2" onclick="btnSalvarAlteracao()" id="btnSalvarAlteracao" hidden>
+                Salvar Alteração
+              </button>
+  
+              <button type="button" class="btn btn-info me-2" onclick="btnCancelarAlteracao()" id="btnCancelarAlteracao" hidden>
+                Cancelar Alteração
+              </button>
+  
+              <button type="" class="btn btn-danger" onclick="btnRemover()" id="btnRemover" hidden>
+                Remover
+              </button>
+  
+              <button type="button" class="btn btn-primary" onclick="window.location.href = '/contas'" id="btnFechar" >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  }) })
+  
+  <script>
+    const form = document.getElementById("form");
+    var oper = "@model.oper";
+  
+    window.onload = limpaForm();
+  
+    //@ Limpa o conteúdo dos campos do formulário
+    async function limpaForm() {
+  console.log(oper, 'jkasjgkjsadgjl')
+      $("#form").each(function() {
+        this.reset();
+      });
+  
+      // Mostra os botões de acordo com o tipo da operação
+      if (oper == "c") {
+        $("#btnSalvar").prop("hidden", false);
+        habilitaForm();
+      }
+  
+      if (oper == "u") {
+        $("#btnAlterar").prop("hidden", false);
+      }
+  
+      //Necessário para buscar dados de acordo com o ID para serem alterados
+      if (oper == "u") {
+        idBusca = "@model.idBusca";
+        await getDados(idBusca);
+      }
+  
+      //Coloca o conta no primeiro campo do formulário
+      $("#codigo").focus();
+    }
+  
+    //@ Busca os dados de acordo com o ID para serem alterados
+    async function getDados(idBuscaPar) {
+      console.log("[getDados] idBusca", idBuscaPar);
+  
+      try {
+        const resp = await axios.post(
+          "/contas/getDados", {
+            idBusca: idBuscaPar
+          }, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (resp.data.status == "ok") {
+          $("#contasid").val(resp.data.registro.contasid);
+          $("#codigo").val(resp.data.registro.codigo);
+          $("#descricao").val(resp.data.registro.descricao);
+          if (resp.data.registro.ativo) {
+            $("#ativo").prop("checked", true);
+          } else {
+            $("#ativo").prop("checked", false);
+          }
+  
+        } else {
+          alert("Houve erro ao buscar os dados dos usuarios!");
+        }
+      } catch (error) {
+        alert("[view_cadContas|getDados] Ocorreu um erro inesperado!" + error);
+      }
+    }
+  
+    //@ Valida o formulário antes de salvá-lo
+    function validaForm(formDataPar) {
+      var validado = true;
+      $("#form input, #form select").each(function(index) {
+        var input = $(this);
+        if (
+          input.attr("type") == "text" &&
+          input.prop("required") &&
+          String(input.val()).length == 0
+        ) {
+          alert("Campo obrigatório");
+          $(input).focus();
+          validado = false;
+          return false;
+        }
+      });
+  
+      if (formDataPar.get("ativo") == "on") {
+        formDataPar.set("ativo", true);
+      } else {
+        formDataPar.set("ativo", false);
+      }
+      formDataPar.set("deleted", false);
+  
+      return validado;
+    }
+  
+    //@ Salva os dados
+    async function btnSalvar() {
+      const formData = new FormData(form);
+  
+      const validado = validaForm(formData);
+      if (!validado) {
+        return;
+      }
+  
+      try {
+        resp = await axios.post("/contas/insertContas", formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (resp.data.status == "ok") {
+          alert(resp.data.mensagem);
+          limpaForm();
+        } else {
+          alert("Houve um erro: " + resp.data.mensagem);
+        }
+      } catch (error) {
+        alert("[view_cadContas|btnSalvar] Ocorreu um erro inesperado!" + error);
+      }
+    }
+  
+    //@ Habilita form para alteração
+    function habilitaForm() {
+      $("#banco").prop("class", "form-control");
+      $("#banco").prop("readonly", false);
+  
+      $("#agencia").prop("class", "form-control");
+      $("#agencia").prop("readonly", false);
+
+      $("#conta_corrente").prop("class", "form-control");
+      $("#conta_corrente").prop("readonly", false);
+
+      $("#pagar").prop("class", "form-control");
+      $("#pagar").prop("readonly", false);
+
+      $("#receber").prop("class", "form-control");
+      $("#receber").prop("readonly", false);
+  
+    }
+  
+    //@
+</script>
