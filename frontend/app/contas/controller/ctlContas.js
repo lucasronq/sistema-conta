@@ -191,11 +191,11 @@ const deleteContas = (req, res) =>
     try {
       if (req.method == "POST") {
         const regPost = validateForm(req.body);
-        regPost.contaid = parseInt(regPost.contaid);
+        regPost.id = parseInt(regPost.id);
         const resp = await axios.post(
           process.env.SERVIDOR_DW3 + "/DeleteContas",
           {
-            contaid: regPost.contaid,
+            id: regPost.id,
           },
           {
             headers: {

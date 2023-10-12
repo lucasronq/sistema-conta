@@ -36,7 +36,7 @@
                         <i class="fas fa-lock icon-modify"></i>
                         <input type="password" placeholder="Password" name="password">
                     </label>                    
-                    
+                    <br>           
                     <button class="btn btn-second" type="submit" value="register">cadastrar</button>        
                 </form>
             </div><!-- second column -->
@@ -66,8 +66,7 @@
                         <i class="fas fa-lock icon-modify"></i>
                         <input type="password" placeholder="Password" name="password">
                     </label>
-                
-                    <p class="password" href="#">Bem vindo!</p>
+                    <br>
                     <button class="btn btn-second" type="submit" value="Login">entre</button>
                 </form>
             </div><!-- second column -->

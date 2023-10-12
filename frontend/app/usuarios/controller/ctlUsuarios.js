@@ -54,7 +54,7 @@ const insertUsuarios = (req, res) =>
           endereco: "",
           rendafamiliar: "0.00",
           datanascimento: "",
-          contaid: 0,
+          id: 0,
           deleted: false,
         };
 
@@ -77,7 +77,7 @@ const insertUsuarios = (req, res) =>
             endereco: usuarioREG.endereco,
             rendafamiliar: usuarioREG.rendafamiliar,
             datanascimento: usuarioREG.datanascimento,
-            contaid: usuarioREG.contaid,
+            id: usuarioREG.id,
             deleted: false,
           },
           {
@@ -97,7 +97,7 @@ const insertUsuarios = (req, res) =>
             endereco: "",
             rendafamiliar: "0.00",
             datanascimento: "",
-            contaid: 0,
+            id: 0,
             deleted: false,
           };
         } else {
@@ -186,7 +186,7 @@ const viewUsuarios = (req, res) =>
             endereco: usuarioREG.endereco,
             rendafamiliar: usuarioREG.rendafamiliar,
             datanascimento: usuarioREG.datanascimento,
-            contaid: usuarioREG.contaid,
+            id: usuarioREG.id,
             deleted: false,
           },
           {

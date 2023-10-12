@@ -5,44 +5,49 @@
   <main>
     <div class="container-fluid px-4">
       <h1 class="mt-2">@model.title</h1>
-      <ol class="breadcrumb mb-2">
-        <li class="breadcrumb-item active">@model.title</li>
-      </ol>
       <div class="row">
         <div class="col-xl-12">
           <div class="card-header"></div>
-  
+          <br>
+          <br>
           <div class="card-body">
             <div class="col-sm-6 col-xxl-12">
               <form id="form">
                 <div class="mb-1" style="display: none">
-                  <input type="number" name="contasid" class="form-control" id="contasid" />
+                  <input type="number" name="id" class="form-control" id="id" />
                 </div>
-                <div class="mb-1 row ">
-                  <label for="codigo" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
+                <div class="mb-1 col-12 ">
+                  <label for="banco" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
                   <div class="col-sm-4 col-xxl-2">
-                    <input type="text" name="banco" class="form-control-plaintext" id="banco" maxlength="10" required />
+                    <input type="text" name="banco" class="form-control-plaintext" id="banco" maxlength="30" required />
                   </div>
   
-                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
+                  <label for="agencia" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
                   <div class="col-sm-4 col-xxl-3">
-                    <input type="text" name="agencia" class="form-control-plaintext" id="agencia" maxlength="50" required />
+                    <input type="number" name="agencia" class="form-control-plaintext" id="agencia" maxlength="30" required />
+                  </div>
+                
+                  <label for="conta_corrente" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
+                  <div class="col-sm-4 col-xxl-4">
+                    <input type="number" name="conta_corrente" class="form-control-plaintext" id="conta_corrente" maxlength="30" required />
+                  </div>
+                
+
+                  <label for="receber" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
+                  <div class="col-sm-4 col-xxl-3">
+                    <input type="number" name="receber" class="form-control-plaintext" id="receber" maxlength="50" required />
                   </div>
 
-                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
+                  <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
                   <div class="col-sm-4 col-xxl-3">
-                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="conta_corrente" maxlength="50" required />
+                    <input type="number" name="pagar" class="form-control-plaintext" id="pagar" maxlength="50" required />
                   </div>
 
-                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
+                  <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Abertura:</label>
                   <div class="col-sm-4 col-xxl-3">
-                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="receber" maxlength="50" required />
+                    <input type="date" name="abertura" class="form-control-plaintext" id="pagar" maxlength="50" required />
                   </div>
 
-                  <label for="descricao" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
-                  <div class="col-sm-4 col-xxl-3">
-                    <input type="text" name="conta_corrente" class="form-control-plaintext" id="pagar" maxlength="50" required />
-                  </div>
                 </div>
               </form>
             </div>
@@ -88,7 +93,6 @@
   
     //@ Limpa o conteúdo dos campos do formulário
     async function limpaForm() {
-  console.log(oper, 'jkasjgkjsadgjl')
       $("#form").each(function() {
         this.reset();
       });
@@ -110,7 +114,7 @@
       }
   
       //Coloca o conta no primeiro campo do formulário
-      $("#codigo").focus();
+      $("#banco").focus();
     }
   
     //@ Busca os dados de acordo com o ID para serem alterados
@@ -128,9 +132,13 @@
           }
         );
         if (resp.data.status == "ok") {
-          $("#contasid").val(resp.data.registro.contasid);
-          $("#codigo").val(resp.data.registro.codigo);
-          $("#descricao").val(resp.data.registro.descricao);
+          $("#id").val(resp.data.registro.id);
+          $("#banco").val(resp.data.registro.banco);
+          $("#agencia").val(resp.data.registro.agencia);
+          $("#conta_corrente").val(resp.data.registro.conta_corrente);
+          $("#receber").val(resp.data.registro.receber);
+          $("#pagar").val(resp.data.registro.pagar);
+          $("#abertura").val(resp.data.registro.abertura);
           if (resp.data.registro.ativo) {
             $("#ativo").prop("checked", true);
           } else {
@@ -215,8 +223,91 @@
 
       $("#receber").prop("class", "form-control");
       $("#receber").prop("readonly", false);
+ 
+      $("#abertura").prop("class", "form-control");
+      $("#abertura").prop("readonly", false); 
+
+      $("#ativo").prop("disabled", false);
   
     }
-  
-    //@
+
+    async function btnAlterar() {
+      $("#btnSalvarAlteracao").prop("hidden", false);
+      $("#btnCancelarAlteracao").prop("hidden", false);
+      $("#btnRemover").prop("hidden", false);
+      $("#btnAlterar").prop("hidden", true);
+
+    habilitaForm();
+  }
+    //@ Salva a alteração
+  //@ console.log("[view_cadContas|btnSalvarAlteracao] :", )
+  async function btnSalvarAlteracao() {
+    const formData = new FormData(form);
+    const validado = validaForm(formData);
+    if (!validado) {
+      return;
+    }
+
+    try {
+      resp = await axios.post("/contas/updateContas", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (resp.data.status == "ok") {
+        alert(resp.data.mensagem);
+        window.open("/contas/openContasUpdate/" + String($("#id").val()), "_self");
+      } else {
+        alert("Houve um erro: " + resp.data.mensagem);
+      }
+    } catch (error) {
+      alert("[view_cadContas|btnSalvarAlteracao]Ocorreu um erro inesperado!" + error);
+    }
+
+  }
+
+  //@ Cancela a alteração
+  //@ console.log("[view_cadContas|btnCancelarAlteracao] Valor do id", $("#id").val());    
+  async function btnCancelarAlteracao() {
+    window.open("/contas/openContasUpdate/" + String($("#id").val()), "_self");
+  }
+
+  //@ Remove curso
+  //@ console.log("[view_cadContas|btnSalvarAlteracao] :", )
+  async function btnRemover() { 
+
+    var confirma = confirm("Deseja realmente remover o registro?");
+    if (!confirma) {
+      return; //@ Se o usuário selecionar Cancela, o registro não é removido.
+    }
+    const formData = new FormData(form);
+
+    try {
+      resp = await axios.post("/contas/deleteContas", {
+        id: formData.get("id")
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (resp.data.status == "ok") {
+        alert(resp.data.mensagem);
+        window.open("/contas", "_self");
+      } else {
+        alert("Houve um erro: " + resp.data.mensagem);
+      }
+    } catch (error) {
+      alert("[view_cadContas|btnSalvarAlteracao]Ocorreu um erro inesperado!" + error);
+    }
+  }
+
 </script>
+
+<style>
+  .required:after {
+    content: " *";
+    color: red;
+  }
+</style>
