@@ -35,6 +35,27 @@ const insertConta = (req, res) =>
           userName: userName,
         });
       }
+      if (req.method === 'POST') {
+        const regPost = validateForm(req.body);
+        regPost.contasid = 0;
+        const resp = await axios.post(
+          process.env.SERVIDOR_DW3 + "/conta",
+          regPost,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+
+        if (resp.data.status == "ok") {
+          res.json({ status: "ok", mensagem: "Contas inserido com sucesso!" });
+        } else {
+          res.json({ status: "erro", mensagem: "Erro ao inserir conta!" });
+        }
+      }
+      res.render('contas/view_cadContas', { title: 'Cadastro de contas', oper: "c" });
     } catch (erro) {
       console.log(
         "[ctlUsuario.js|insertUsuario] Try Catch: Erro não identificado",
@@ -90,11 +111,8 @@ const getDados = (req, res) =>
     parseInt(idBusca);
     console.log("[ctlContas.js|getDados] valor id :", idBusca);
     try {
-      resp = await axios.post(
-        process.env.SERVIDOR_DW3 + "/GetContasByID",
-        {
-          contasid: idBusca,
-        },
+      resp = await axios.get(
+        process.env.SERVIDOR_DW3 + `/conta/${idBusca}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -103,12 +121,12 @@ const getDados = (req, res) =>
         }
       );
       if (resp.data.status == "ok") {
-        res.json({ status: "ok", registro: resp.data.registro[0] });
+        res.json({ status: "ok", registro: resp.data.result?.[0] });
       }
     } catch (error) {
       console.log(
         "[ctlContas.js|getDados] Try Catch: Erro não identificado",
-        erro
+        error
       );
     }
 
@@ -117,28 +135,7 @@ const getDados = (req, res) =>
 //@ Realiza inserção de contas
 const openContasInsert = (req, res) =>
   (async () => {
-    token = req.session.token;
     try {
-      if (req.method == "POST") {
-        const regPost = validateForm(req.body);
-        regPost.contasid = 0;
-        const resp = await axios.post(
-          process.env.SERVIDOR_DW3 + "/conta",
-          regPost,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-
-        if (resp.data.status == "ok") {
-          res.json({ status: "ok", mensagem: "Contas inserido com sucesso!" });
-        } else {
-          res.json({ status: "erro", mensagem: "Erro ao inserir conta!" });
-        }
-      }
       res.render('contas/view_cadContas', { title: 'Cadastro de contas', oper: "c" });
     } catch (erro) {
       console.log(
@@ -147,8 +144,6 @@ const openContasInsert = (req, res) =>
       );
     }
   })();
-
-
 
 //@ Realiza atualização de contas
 ///@ console.log("[ctlUsuarios.js|updateContas] Valor regPost: ", regPost);

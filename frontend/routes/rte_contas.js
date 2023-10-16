@@ -19,7 +19,7 @@ function authenticationMiddleware(req, res, next) {
 }; 
   
 /* GET métodos */
-router.get('/contas', authenticationMiddleware, contasApp.getAllContas);
+router.get('/', authenticationMiddleware, contasApp.getAllContas);
 router.get('/openContasInsert', authenticationMiddleware, contasApp.openContasInsert);
 router.get('/openContasUpdate/:id', authenticationMiddleware, contasApp.openContasUpdate);
 
