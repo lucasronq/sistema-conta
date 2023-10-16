@@ -109,7 +109,6 @@ const getDados = (req, res) =>
   (async () => {
     const idBusca = req.body.idBusca;
     parseInt(idBusca);
-    console.log("[ctlContas.js|getDados] valor id :", idBusca);
     try {
       resp = await axios.get(
         process.env.SERVIDOR_DW3 + `/conta/${idBusca}`,
@@ -153,8 +152,8 @@ const updateContas = (req, res) =>
     try {
       if (req.method == "POST") {
         const regPost = validateForm(req.body);
-        const resp = await axios.post(
-          process.env.SERVIDOR_DW3 + "/UpdateContas",
+        const resp = await axios.put(
+          process.env.SERVIDOR_DW3 + "/conta",
           regPost,
           {
             headers: {
@@ -184,22 +183,22 @@ const deleteContas = (req, res) =>
   (async () => {
     token = req.session.token;
     try {
+      console.log(token)
       if (req.method == "POST") {
         const regPost = validateForm(req.body);
         regPost.id = parseInt(regPost.id);
-        const resp = await axios.post(
-          process.env.SERVIDOR_DW3 + "/DeleteContas",
-          {
-            id: regPost.id,
-          },
+        const resp = await axios.delete(
+          process.env.SERVIDOR_DW3 + "/conta",
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
             },
+            data: {
+              id: regPost.id
+            }
           }
         );
-
         if (resp.data.status == "ok") {
           res.json({ status: "ok", mensagem: "Contas removido com sucesso!" });
         } else {

@@ -11,7 +11,7 @@ class ContasDTO {
 module.exports = {
     getAllContas: async () => {
         return (
-            await db.query('SELECT * FROM contas')
+            await db.query('SELECT * FROM contas WHERE deleted = false')
         ).rows;
     },
 
