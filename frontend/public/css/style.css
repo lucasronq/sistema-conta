@@ -143,6 +143,7 @@ body {
     width: 100%;
     border: none;
     background-color: #ecf0f1;
+    padding-left: 10px;
 }
 input:-webkit-autofill 
 {    
@@ -514,7 +515,10 @@ input:-webkit-autofill
     }
 }
 
-
+img {
+    max-width: 100%; /* A imagem não será maior do que a largura do contêiner pai */
+    height: auto; /* A altura será ajustada automaticamente para manter a proporção original da imagem */
+}
 
 
 
