@@ -20,45 +20,45 @@
                 <div class="row">
                   <label for="banco" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
                   <div class="col-sm-4 col-xxl-2">
-                    <input type="text" name="banco" class="form-control-plaintext" id="banco" maxlength="30" required />
+                    <input type="text" name="banco" class="datatable-input" id="banco" maxlength="30" required />
                   </div>
     
                   <label for="agencia" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
-                  <div class="col-sm-4 col-xxl-3">
-                    <input type="number" name="agencia" class="form-control-plaintext" id="agencia" maxlength="30" required />
+                  <div class="col-sm-4 col-xxl-2">
+                    <input type="number" name="agencia" class="datatable-input" id="agencia" maxlength="30" required />
                   </div>
                 </div>
 
+                <br>
+
                 <div class="row">
                   <label for="conta_corrente" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
-                  <div class="col-sm-4 col-xxl-4">
-                    <input type="number" name="conta_corrente" class="form-control-plaintext" id="conta_corrente" maxlength="30" required />
+                  <div class="col-sm-4 col-xxl-2">
+                    <input type="number" name="conta_corrente" class="datatable-input" id="conta_corrente" maxlength="20" required />
                   </div>
 
                   <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Abertura:</label>
-                  <div class="col-sm-4 col-xxl-5">
-                    <input type="date" name="abertura" class="form-control-plaintext" id="pagar" maxlength="50" required />
+                  <div class="col-sm-4 col-xxl-2">
+                    <input type="date" name="abertura" class="datatable-input" id="pagar" maxlength="50" required />
                   </div>
                 </div>
              
                 <div class="row">     
                   <label for="receber" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
                   <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="receber" class="form-control-plaintext" id="receber" maxlength="30" required />
+                    <input type="number" name="receber" class="datatable-input" id="receber" maxlength="30" required />
                   </div>
                   
                   <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
                   <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="pagar" class="form-control-plaintext" id="pagar" maxlength="30" required />
+                    <input type="number" name="pagar" class="datatable-input" id="pagar" maxlength="30" required />
                   </div>
                   
                 </div>
-                 
-
-                
+                               
               </form>
             </div>
-            
+            <br>
             <div class="">
               <button type="button" class="btn btn-success me-2" onclick="btnSalvar()" id="btnSalvar" hidden>
                 Salvar

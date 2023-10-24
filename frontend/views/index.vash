@@ -2,7 +2,10 @@
 
     @html.block('content', function(model){
         
-        <img src="/images/4235572.jpg" alt="contas" >
+        <div class="imgback">
+
+        </div>
+        
       
     })
 

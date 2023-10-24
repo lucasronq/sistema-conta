@@ -43,8 +43,8 @@
                                     <td>@registro.agencia</td>
                                     <td>@registro.conta_corrente</td>
                                     <td>@registro.receber</td>
-                                    <td>@registro.pagar</td>
-                                    <td>@registro.abertura</td>
+                                    <td>@registro.pagar</td>'
+                                    <td>@(`${new Date(registro.abertura).getUTCDate()}/${new Date(registro.abertura).getUTCMonth()}/${new Date(registro.abertura).getUTCFullYear()}`)</td>
                                     <td>@(registro.deleted ? "Sim" : "Não")</td>                                    
                                 </tr>
                                 })
