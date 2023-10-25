@@ -1,252 +1,257 @@
 @html.extend('layout', function(model){
 
-  @html.block('content', function(model){
-  
-  <main>
-    <div class="container-fluid px-4">
-      <h1 class="mt-2 h1-sty">@model.title</h1>
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card-header"></div>
+@html.block('content', function(model){
+
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-2 h1-sty">@model.title</h1>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card-header"></div>
+        <br>
+        <br>
+        <div class="card-body">
+          <div class="col-sm-6 col-xxl-12">
+            <form id="form">
+              <div class="mb-1" style="display: none">
+                <input type="number" name="id" class="form-control" id="id" />
+              </div>
+
+              <div class="row">
+                <label for="banco" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="text" name="banco" class="datatable-input" id="banco" maxlength="30" required />
+                </div>
+
+                <label for="agencia" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="number" name="agencia" class="datatable-input" id="agencia" maxlength="30"
+                    required />
+                </div>
+              </div>
+
+              <br>
+
+              <div class="row">
+                <label for="conta_corrente" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="number" name="conta_corrente" class="datatable-input" id="conta_corrente"
+                    maxlength="20" required />
+                </div>
+
+                <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Abertura:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="date" name="abertura" class="datatable-input" id="abertura" maxlength="50"
+                    required />
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="receber" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="number" name="receber" class="datatable-input" id="receber" maxlength="30"
+                    required />
+                </div>
+
+                <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
+                <div class="col-sm-4 col-xxl-2">
+                  <input readonly type="number" name="pagar" class="datatable-input" id="pagar" maxlength="30"
+                    required />
+                </div>
+
+              </div>
+
+            </form>
+          </div>
           <br>
-          <br>
-          <div class="card-body">
-            <div class="col-sm-6 col-xxl-12">
-              <form id="form">
-                <div class="mb-1" style="display: none">
-                  <input type="number" name="id" class="form-control" id="id" />
-                </div>
-      
-                <div class="row">
-                  <label for="banco" class="col-sm-2 col-xxl-1 col-form-label required">Banco:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="text" name="banco" class="datatable-input" id="banco" maxlength="30" required />
-                  </div>
-    
-                  <label for="agencia" class="col-sm-2 col-xxl-1 col-form-label required">Agência:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="agencia" class="datatable-input" id="agencia" maxlength="30" required />
-                  </div>
-                </div>
+          <div class="">
+            <button type="button" class="btn btn-success me-2" onclick="btnSalvar()" id="btnSalvar" hidden>
+              Salvar
+            </button>
 
-                <br>
+            <button type="button" class="btn btn-warning me-2" onclick="btnAlterar()" id="btnAlterar" hidden>
+              Alterar
+            </button>
 
-                <div class="row">
-                  <label for="conta_corrente" class="col-sm-2 col-xxl-1 col-form-label required">Conta Corrente:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="conta_corrente" class="datatable-input" id="conta_corrente" maxlength="20" required />
-                  </div>
+            <button type="button" class="btn btn-warning me-2" onclick="btnSalvarAlteracao()" id="btnSalvarAlteracao"
+              hidden>
+              Salvar Alteração
+            </button>
 
-                  <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Abertura:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="date" name="abertura" class="datatable-input" id="pagar" maxlength="50" required />
-                  </div>
-                </div>
-             
-                <div class="row">     
-                  <label for="receber" class="col-sm-2 col-xxl-1 col-form-label required">Receber:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="receber" class="datatable-input" id="receber" maxlength="30" required />
-                  </div>
-                  
-                  <label for="pagar" class="col-sm-2 col-xxl-1 col-form-label required">Pagar:</label>
-                  <div class="col-sm-4 col-xxl-2">
-                    <input type="number" name="pagar" class="datatable-input" id="pagar" maxlength="30" required />
-                  </div>
-                  
-                </div>
-                               
-              </form>
-            </div>
-            <br>
-            <div class="">
-              <button type="button" class="btn btn-success me-2" onclick="btnSalvar()" id="btnSalvar" hidden>
-                Salvar
-              </button>
-  
-              <button type="button" class="btn btn-warning me-2" onclick="btnAlterar()" id="btnAlterar" hidden>
-                Alterar
-              </button>
-  
-              <button type="button" class="btn btn-warning me-2" onclick="btnSalvarAlteracao()" id="btnSalvarAlteracao" hidden>
-                Salvar Alteração
-              </button>
-  
-              <button type="button" class="btn btn-info me-2" onclick="btnCancelarAlteracao()" id="btnCancelarAlteracao" hidden>
-                Cancelar Alteração
-              </button>
-  
-              <button type="" class="btn btn-danger" onclick="btnRemover()" id="btnRemover" hidden>
-                Remover
-              </button>
-  
-              <button type="button" class="btn btn-primary" onclick="window.location.href = '/contas'" id="btnFechar" >
-                Fechar
-              </button>
-            </div>
+            <button type="button" class="btn btn-info me-2" onclick="btnCancelarAlteracao()" id="btnCancelarAlteracao"
+              hidden>
+              Cancelar Alteração
+            </button>
+
+            <button type="" class="btn btn-danger" onclick="btnRemover()" id="btnRemover" hidden>
+              Remover
+            </button>
+
+            <button type="button" class="btn btn-primary" onclick="window.location.href = '/contas'" id="btnFechar">
+              Fechar
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </main>
-  
-  }) })
-  
-  <script>
-    const form = document.getElementById("form");
-    var oper = "@model.oper";
-  
-    window.onload = limpaForm();
-  
-    //@ Limpa o conteúdo dos campos do formulário
-    async function limpaForm() {
-      $("#form").each(function() {
-        this.reset();
-      });
-  
-      // Mostra os botões de acordo com o tipo da operação
-      if (oper == "c") {
-        $("#btnSalvar").prop("hidden", false);
-        habilitaForm();
-      }
-  
-      if (oper == "u") {
-        $("#btnAlterar").prop("hidden", false);
-      }
-  
-      //Necessário para buscar dados de acordo com o ID para serem alterados
-      if (oper == "u") {
-        idBusca = "@model.idBusca";
-        await getDados(idBusca);
-      }
-  
-      //Coloca o conta no primeiro campo do formulário
-      $("#banco").focus();
+  </div>
+</main>
+
+}) })
+
+<script>
+  const form = document.getElementById("form");
+  var oper = "@model.oper";
+
+  window.onload = limpaForm();
+
+  //@ Limpa o conteúdo dos campos do formulário
+  async function limpaForm() {
+    $("#form").each(function () {
+      this.reset();
+    });
+
+    // Mostra os botões de acordo com o tipo da operação
+    if (oper == "c") {
+      $("#btnSalvar").prop("hidden", false);
+      habilitaForm();
     }
-  
-    //@ Busca os dados de acordo com o ID para serem alterados
-    async function getDados(idBuscaPar) {
-      console.log("[getDados] idBusca", idBuscaPar);
-  
-      try {
-        const resp = await axios.post(
-          "/contas/getDados", {
-            idBusca: idBuscaPar
-          }, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (resp.data.status == "ok") {
-          $("#id").val(resp.data.registro.id);
-          $("#banco").val(resp.data.registro.banco);
-          $("#agencia").val(resp.data.registro.agencia);
-          $("#conta_corrente").val(resp.data.registro.conta_corrente);
-          $("#receber").val(resp.data.registro.receber);
-          $("#pagar").val(resp.data.registro.pagar);
-          $("#abertura").val(resp.data.registro.abertura);
-          if (resp.data.registro.ativo) {
-            $("#ativo").prop("checked", true);
-          } else {
-            $("#ativo").prop("checked", false);
-          }
-  
+
+    if (oper == "u") {
+      $("#btnAlterar").prop("hidden", false);
+    }
+
+    //Necessário para buscar dados de acordo com o ID para serem alterados
+    if (oper == "u") {
+      idBusca = "@model.idBusca";
+      await getDados(idBusca);
+    }
+
+    //Coloca o conta no primeiro campo do formulário
+    $("#banco").focus();
+  }
+
+  //@ Busca os dados de acordo com o ID para serem alterados
+  async function getDados(idBuscaPar) {
+    try {
+      const resp = await axios.post(
+        "/contas/getDados", {
+        idBusca: idBuscaPar
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+      );
+      if (resp.data.status == "ok") {
+        $("#id").val(resp.data.registro.id);
+        $("#banco").val(resp.data.registro.banco);
+        $("#agencia").val(resp.data.registro.agencia);
+        $("#conta_corrente").val(resp.data.registro.conta_corrente);
+        $("#receber").val(resp.data.registro.receber);
+        $("#pagar").val(resp.data.registro.pagar);
+        $("#abertura").val(new Date(resp.data.registro.abertura).toISOString().substring(0, 10));
+        if (resp.data.registro.ativo) {
+          $("#ativo").prop("checked", true);
         } else {
-          alert("Houve erro ao buscar os dados dos usuarios!");
+          $("#ativo").prop("checked", false);
         }
-      } catch (error) {
-        alert("[view_cadContas|getDados] Ocorreu um erro inesperado!" + error);
-      }
-    }
-  
-    //@ Valida o formulário antes de salvá-lo
-    function validaForm(formDataPar) {
-      var validado = true;
-      $("#form input, #form select").each(function(index) {
-        var input = $(this);
-        if (
-          input.attr("type") == "text" &&
-          input.prop("required") &&
-          String(input.val()).length == 0
-        ) {
-          alert("Campo obrigatório");
-          $(input).focus();
-          validado = false;
-          return false;
-        }
-      });
-  
-      if (formDataPar.get("ativo") == "on") {
-        formDataPar.set("ativo", true);
+
       } else {
-        formDataPar.set("ativo", false);
+        alert("Houve erro ao buscar os dados dos usuarios!");
       }
-      formDataPar.set("deleted", false);
-  
-      return validado;
+    } catch (error) {
+      alert("[view_cadContas|getDados] Ocorreu um erro inesperado!" + error);
     }
-  
-    //@ Salva os dados
-    async function btnSalvar() {
-      const formData = new FormData(form);
-  
-      const validado = validaForm(formData);
-      if (!validado) {
-        return;
+  }
+
+  //@ Valida o formulário antes de salvá-lo
+  function validaForm(formDataPar) {
+    var validado = true;
+    $("#form input, #form select").each(function (index) {
+      var input = $(this);
+      if (
+        input.attr("type") == "text" &&
+        input.prop("required") &&
+        String(input.val()).length == 0
+      ) {
+        alert("Campo obrigatório");
+        $(input).focus();
+        validado = false;
+        return false;
       }
-  
-      try {
-        resp = await axios.post("/contas/insertContas", formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-  
-        if (resp.data.status == "ok") {
-          alert(resp.data.mensagem);
-          limpaForm();
-        } else {
-          alert("Houve um erro: " + resp.data.mensagem);
-        }
-      } catch (error) {
-        alert("[view_cadContas|btnSalvar] Ocorreu um erro inesperado!" + error);
-      }
+    });
+
+    if (formDataPar.get("ativo") == "on") {
+      formDataPar.set("ativo", true);
+    } else {
+      formDataPar.set("ativo", false);
     }
-  
-    //@ Habilita form para alteração
-    function habilitaForm() {
-      $("#banco").prop("class", "form-control");
-      $("#banco").prop("readonly", false);
-  
-      $("#agencia").prop("class", "form-control");
-      $("#agencia").prop("readonly", false);
+    formDataPar.set("deleted", false);
 
-      $("#conta_corrente").prop("class", "form-control");
-      $("#conta_corrente").prop("readonly", false);
+    return validado;
+  }
 
-      $("#pagar").prop("class", "form-control");
-      $("#pagar").prop("readonly", false);
+  //@ Salva os dados
+  async function btnSalvar() {
+    const formData = new FormData(form);
 
-      $("#receber").prop("class", "form-control");
-      $("#receber").prop("readonly", false);
- 
-      $("#abertura").prop("class", "form-control");
-      $("#abertura").prop("readonly", false); 
-
-      $("#ativo").prop("disabled", false);
-  
+    const validado = validaForm(formData);
+    if (!validado) {
+      return;
     }
 
-    async function btnAlterar() {
-      $("#btnSalvarAlteracao").prop("hidden", false);
-      $("#btnCancelarAlteracao").prop("hidden", false);
-      $("#btnRemover").prop("hidden", false);
-      $("#btnAlterar").prop("hidden", true);
+    try {
+      resp = await axios.post("/contas/insertContas", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (resp.data.status == "ok") {
+        alert(resp.data.mensagem);
+        limpaForm();
+      } else {
+        alert("Houve um erro: " + resp.data.mensagem);
+      }
+    } catch (error) {
+      alert("[view_cadContas|btnSalvar] Ocorreu um erro inesperado!" + error);
+    }
+  }
+
+  //@ Habilita form para alteração
+  function habilitaForm() {
+    $("#banco").prop("class", "form-control");
+    $("#banco").prop("readonly", false);
+
+    $("#agencia").prop("class", "form-control");
+    $("#agencia").prop("readonly", false);
+
+    $("#conta_corrente").prop("class", "form-control");
+    $("#conta_corrente").prop("readonly", false);
+
+    $("#pagar").prop("class", "form-control");
+    $("#pagar").prop("readonly", false);
+
+    $("#receber").prop("class", "form-control");
+    $("#receber").prop("readonly", false);
+
+    $("#abertura").prop("class", "form-control");
+    $("#abertura").prop("readonly", false);
+
+    $("#ativo").prop("disabled", false);
+
+  }
+
+  async function btnAlterar() {
+    $("#btnSalvarAlteracao").prop("hidden", false);
+    $("#btnCancelarAlteracao").prop("hidden", false);
+    $("#btnRemover").prop("hidden", false);
+    $("#btnAlterar").prop("hidden", true);
 
     habilitaForm();
   }
-    //@ Salva a alteração
+  //@ Salva a alteração
   //@ console.log("[view_cadContas|btnSalvarAlteracao] :", )
   async function btnSalvarAlteracao() {
     const formData = new FormData(form);
@@ -282,7 +287,7 @@
 
   //@ Remove curso
   //@ console.log("[view_cadContas|btnSalvarAlteracao] :", )
-  async function btnRemover() { 
+  async function btnRemover() {
 
     var confirma = confirm("Deseja realmente remover o registro?");
     if (!confirma) {
